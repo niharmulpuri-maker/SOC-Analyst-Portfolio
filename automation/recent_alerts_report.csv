@@ -1,0 +1,4 @@
+Timestamp_UTC,Detection_Name,Sensor_ID,Hostname,CommandLine,ParentImage,User
+2026-08-27 22:51:24,High Severity - Obfuscated Encoded PowerShell Execution,65803afd-b139-4e6d-bfdb-22e7bea0b7a3,win-u943mvp54np,"powershell.exe -EncodedCommand dwBoAG8AYQBtAGkA",C:\Windows\System32\cmd.exe,WIN-U943MVP54NP\Nihar
+2026-08-27 22:49:07,High Severity - Obfuscated Encoded PowerShell Execution,65803afd-b139-4e6d-bfdb-22e7bea0b7a3,win-u943mvp54np,"powershell.exe -EncodedCommand SQBuAHYAbwBrAGUALQBXAG0AaQBNAGUAdABoAG8AZAA=",C:\Windows\System32\cmd.exe,WIN-U943MVP54NP\Nihar
+2026-08-06 00:49:47,Custom Detection - Scheduled Task Persistence Attempt,65803afd-b139-4e6d-bfdb-22e7bea0b7a3,win-u943mvp54np,"schtasks /create /tn ""T1053_005_OnLogon"" /sc onlogon /tr ""cmd.exe /c calc.exe""",C:\Windows\System32\cmd.exe,WIN-U943MVP54NP\Nihar
