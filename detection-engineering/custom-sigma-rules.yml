@@ -1,0 +1,25 @@
+events:
+  - WEL
+op: and
+rules:
+  - op: contains
+    path: event/EVENT/EventData/ParentImage
+    value: cmd.exe
+  - op: contains
+    path: event/EVENT/EventData/Image
+    value: powershell.exe
+  - op: or
+    rules:
+      - op: contains
+        path: event/EVENT/EventData/CommandLine
+        value: -enc
+      - op: contains
+        path: event/EVENT/EventData/CommandLine
+        value: -EncodedCommand
+      - op: contains
+        path: event/EVENT/EventData/CommandLine
+        value: -e
+
+
+- action: report
+  name: High Severity - Obfuscated Encoded PowerShell Execution
