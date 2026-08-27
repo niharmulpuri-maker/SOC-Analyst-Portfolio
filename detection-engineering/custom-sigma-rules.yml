@@ -1,25 +1,28 @@
-events:
-  - WEL
-op: and
-rules:
-  - op: contains
-    path: event/EVENT/EventData/ParentImage
-    value: cmd.exe
-  - op: contains
-    path: event/EVENT/EventData/Image
-    value: powershell.exe
-  - op: or
-    rules:
-      - op: contains
-        path: event/EVENT/EventData/CommandLine
-        value: -enc
-      - op: contains
-        path: event/EVENT/EventData/CommandLine
-        value: -EncodedCommand
-      - op: contains
-        path: event/EVENT/EventData/CommandLine
-        value: -e
-
-
-- action: report
-  name: High Severity - Obfuscated Encoded PowerShell Execution
+title: Suspicious Encoded PowerShell Execution from CMD
+id: d4e1f820-2b63-4a81-9b62-79c8d622f981
+status: experimental
+description: Detects cmd.exe spawning powershell.exe with base64 encoded command arguments often used to obfuscate adversary commands.
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+author: Nihar Mulpuri
+date: 2026-08-27
+tags:
+  - attack.execution
+  - attack.t1059.001
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_parent:
+    ParentImage|endswith: '\cmd.exe'
+  selection_process:
+    Image|endswith: '\powershell.exe'
+  selection_cli:
+    CommandLine|contains:
+      - '-enc'
+      - '-EncodedCommand'
+      - '-e '
+  condition: selection_parent and selection_process and selection_cli
+falsepositives:
+  - Legitimate administrative automation scripts
+level: high
