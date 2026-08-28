@@ -9,7 +9,6 @@ API_KEY = os.getenv("LC_API_KEY", "YOUR_API_KEY_HERE")
 OUTPUT_CSV = "automation/recent_alerts_report.csv"
 
 def get_jwt(api_key, oid):
-    """Authenticate with LimaCharlie REST API to obtain an access JWT."""
     url = "https://jwt.limacharlie.io"
     params = {"secret": api_key, "oid": oid}
     response = requests.post(url, data=params)
@@ -18,7 +17,6 @@ def get_jwt(api_key, oid):
     return data.get("jwt")
 
 def fetch_detections(jwt, oid):
-    """Fetch all detection alerts generated over the past 24 hours."""
     now = datetime.now(timezone.utc)
     start_time = int((now - timedelta(hours=24)).timestamp())
     end_time = int(now.timestamp())
@@ -35,7 +33,6 @@ def fetch_detections(jwt, oid):
         return []
 
 def parse_and_export_csv(detections, output_file):
-    """Parse JSON detection payloads into a structured CSV format."""
     fieldnames = [
         "Timestamp_UTC",
         "Detection_Name",
